@@ -23,7 +23,7 @@ const MainNavigation = props => {
     <>
       {drawerIsOpen && <Backdrop onClick={closeDrawer} />}
       <SideDrawer show={drawerIsOpen}>
-        <nav className="main-navigation__Drawer-nav">
+        <nav className="main-navigation__drawer-nav">
           <NavLinks />
         </nav>
       </SideDrawer>
