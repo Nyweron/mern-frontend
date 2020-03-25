@@ -23,9 +23,12 @@ const formReducer = (state, action) => {
 
       return {
         ...state,
-        input: {
+        inputs: {
           ...state.inputs,
-          [action.inputId]: { value: action.value, isValid: action.isValid }
+          [action.inputId]: {
+            value: action.value,
+            isValid: action.isValid
+          }
         },
         isValid: formIsValid
       };
@@ -51,16 +54,20 @@ const NewPlace = () => {
 
   const inputHandler = useCallback((id, value, isValid) => {
     dispatch({
-        type: "INPUT_CHANGE",
-        value: value,
-        isValid: isValid,
-        inputId: id
-      });
+      type: "INPUT_CHANGE",
+      value: value,
+      isValid: isValid,
+      inputId: id
+    });
   }, []);
 
+  const placeSubmitHandler = event => {
+    event.preventDefault();
+    console.log(formState.inputs);
+  };
 
   return (
-    <form className="place-form">
+    <form className="place-form" onSubmit={placeSubmitHandler}>
       <Input
         id="title"
         element="input"
