@@ -47,6 +47,10 @@ const NewPlace = () => {
       description: {
         value: "",
         isValid: false
+      },
+      address: {
+        value: "",
+        isValid: false
       }
     },
     isValid: false
@@ -83,6 +87,14 @@ const NewPlace = () => {
         label="Description"
         validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="Please enter a valid description (min length 5 characters)."
+        onInput={inputHandler}
+      />
+      <Input
+        id="address"
+        element="input"
+        label="Address"
+        validators={[VALIDATOR_REQUIRE()]}
+        errorText="Please enter a valid address."
         onInput={inputHandler}
       />
       <Button type="submit" disabled={!formState.isValid}>
