@@ -8,6 +8,7 @@ import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH
 } from "../../shared/util/validators";
+import "./PlaceForm.css";
 
 const UpdatePlace = () => {
   const placeId = useParams().placeId;
@@ -19,13 +20,13 @@ const UpdatePlace = () => {
   }
 
   return (
-    <form>
+    <form className="place-form">
       <Input
         id="title"
         element="input"
         type="text"
         label="Title"
-        validator={[VALIDATOR_REQUIRE()]}
+        validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid title."
         onInput={() => {}}
         value={identifiedPlace.title}
@@ -35,7 +36,7 @@ const UpdatePlace = () => {
         id="description"
         element="textarea"
         label="Description"
-        validator={[VALIDATOR_MINLENGTH(5)]}
+        validators={[VALIDATOR_MINLENGTH(5)]}
         errorText="Please enter a valid descriptions (min. 5 characters)."
         onInput={() => {}}
         value={identifiedPlace.title}
