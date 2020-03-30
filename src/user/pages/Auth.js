@@ -33,7 +33,7 @@ const Auth = () => {
 
   const authSubmitHandler = event => {
     event.preventDefault();
-    console.log(formState.inputs);
+    console.log("LOGIN");
     auth.login();
   };
 
@@ -60,7 +60,7 @@ const Auth = () => {
     }
 
     setIsLoginInMode(prevMode => !prevMode);
-    console.log("switchModeHandler");
+    console.log("SIGNIN");
   };
 
   return (
