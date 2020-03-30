@@ -8,7 +8,7 @@ const Users = () => {
       id:'u1',
       name:"Test user1",
       image:'http://pjuskiewicz.com/images/26130-NX251S.jpg',
-      places:3
+      places:2
     }
   ];
 
