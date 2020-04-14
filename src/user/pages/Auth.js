@@ -3,7 +3,7 @@ import React, { useState, useContext } from "react";
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_EMAIL,
-  VALIDATOR_REQUIRE
+  VALIDATOR_REQUIRE,
 } from "../../shared/util/validators";
 import Card from "../../shared/components/UIElements/Card";
 import Input from "../../shared/components/FormElements/Input";
@@ -21,20 +21,44 @@ const Auth = () => {
     {
       email: {
         value: "",
-        isValid: false
+        isValid: false,
       },
       password: {
         value: "",
-        isValid: false
-      }
+        isValid: false,
+      },
     },
     false
   );
 
-  const authSubmitHandler = event => {
+  const authSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log("LOGIN");
-    auth.login();
+
+    if (isLoginInMode === true) {
+    } else {
+      try {
+        const response = await fetch("http://localhost:5000/api/users/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formState.inputs.name.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+        });
+
+        const responseData = await response.json();
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+
+        auth.login();
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
   const switchModeHandler = () => {
@@ -42,7 +66,7 @@ const Auth = () => {
       setFormData(
         {
           ...formState.inputs,
-          name: undefined
+          name: undefined,
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
@@ -52,15 +76,14 @@ const Auth = () => {
           ...formState.inputs,
           name: {
             value: "",
-            isValid: false
-          }
+            isValid: false,
+          },
         },
         false
       );
     }
 
-    setIsLoginInMode(prevMode => !prevMode);
-    console.log("SIGNIN");
+    setIsLoginInMode((prevMode) => !prevMode);
   };
 
   return (
@@ -73,7 +96,7 @@ const Auth = () => {
             <Input
               element="input"
               id="name"
-              text="text"
+              type="text"
               label="Your Name"
               validators={[VALIDATOR_REQUIRE()]}
               onInput={inputHandler}
@@ -103,10 +126,10 @@ const Auth = () => {
           <Button type="submit" disabled={!formState.isValid}>
             {isLoginInMode ? "LOGIN" : "SIGNUP"}
           </Button>
-          <Button inverse onClick={switchModeHandler}>
-            Switch to {isLoginInMode ? "SIGNUP" : "LOGIN"}
-          </Button>
         </form>
+        <Button inverse onClick={switchModeHandler}>
+          Switch to {isLoginInMode ? "SIGNUP" : "LOGIN"}
+        </Button>
       </Card>
     </>
   );
