@@ -5,8 +5,8 @@ import {
   VALIDATOR_EMAIL,
   VALIDATOR_REQUIRE,
 } from "../../shared/util/validators";
-import ErrorModal from '../../shared/components/UIElements/ErrorModal'
-import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import Card from "../../shared/components/UIElements/Card";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
@@ -92,8 +92,13 @@ const Auth = () => {
     setIsLoginInMode((prevMode) => !prevMode);
   };
 
+  const errorHandler = () => {
+    setError(null);
+  };
+
   return (
     <>
+      <ErrorModal error={error} onClear={errorHandler} />
       <Card className="authentication">
         {isLoading && <LoadingSpinner asOverlay />}
         <h2> Login Required</h2>
