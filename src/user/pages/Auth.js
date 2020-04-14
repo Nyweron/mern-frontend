@@ -5,6 +5,8 @@ import {
   VALIDATOR_EMAIL,
   VALIDATOR_REQUIRE,
 } from "../../shared/util/validators";
+import ErrorModal from '../../shared/components/UIElements/ErrorModal'
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner'
 import Card from "../../shared/components/UIElements/Card";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
@@ -14,7 +16,8 @@ import "./Auth.css";
 
 const Auth = () => {
   const auth = useContext(AuthContext);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
   const [isLoginInMode, setIsLoginInMode] = useState(true);
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -37,6 +40,7 @@ const Auth = () => {
     if (isLoginInMode === true) {
     } else {
       try {
+        setIsLoading(true);
         const response = await fetch("http://localhost:5000/api/users/signup", {
           method: "POST",
           headers: {
@@ -53,10 +57,12 @@ const Auth = () => {
         if (!response.ok) {
           throw new Error(responseData.message);
         }
-
+        setIsLoading(false);
         auth.login();
       } catch (err) {
         console.log(err);
+        setIsLoading(false);
+        setError(err.message || "Something went wrong, please try again.");
       }
     }
   };
@@ -89,6 +95,7 @@ const Auth = () => {
   return (
     <>
       <Card className="authentication">
+        {isLoading && <LoadingSpinner asOverlay />}
         <h2> Login Required</h2>
         <hr />
         <form onSubmit={authSubmitHandler}>
