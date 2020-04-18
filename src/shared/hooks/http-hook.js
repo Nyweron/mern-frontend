@@ -54,7 +54,7 @@ export const useHttpClient = () => {
       https://reactjs.org/docs/hooks-effect.html#example-using-hooks-1
     */
     return () => {
-      // eslint-disable next-line react-hooks/exhaustive-deps
+ // eslint-disable next-line react-hooks/exhaustive-deps
       activeHttpRequests.current.forEach((abortCtrl) => abortCtrl.abort());
       console.log("activeHttpRequests4", activeHttpRequests)
     };
