@@ -1,7 +1,7 @@
 {
   "name": "app",
   "version": "0.1.0",
-  "homepage": "https://nyweron.github.io/mern",
+  "homepage": "https://nyweron.github.io/mern-frontend",
   "author": "Przemysław Juśkiewicz",
   "private": true,
   "dependencies": {
