@@ -1,1 +1,1 @@
-You can see result on: https://nyweron.github.io/mern
+You can see result on: https://nyweron.github.io/mern-frontend
