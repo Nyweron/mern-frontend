@@ -11,7 +11,6 @@ export const useHttpClient = () => {
       setIsLoading(true);
       const httpAbortCtrl = new AbortController();
       activeHttpRequests.current.push(httpAbortCtrl);
-      console.log("activeHttpRequests", activeHttpRequests)
 
       try {
         const response = await fetch(url, {
@@ -23,11 +22,9 @@ export const useHttpClient = () => {
 
         const responseData = await response.json();
 
-        console.log("activeHttpRequests2", activeHttpRequests)
         activeHttpRequests.current = activeHttpRequests.current.filter(
           (reqCtrl) => reqCtrl !== httpAbortCtrl
         );
-        console.log("activeHttpRequests3", activeHttpRequests)
 
         if (!response.ok) {
           throw new Error(responseData.message);
@@ -56,7 +53,6 @@ export const useHttpClient = () => {
     return () => {
  // eslint-disable next-line react-hooks/exhaustive-deps
       activeHttpRequests.current.forEach((abortCtrl) => abortCtrl.abort());
-      console.log("activeHttpRequests4", activeHttpRequests)
     };
 
   }, []);
