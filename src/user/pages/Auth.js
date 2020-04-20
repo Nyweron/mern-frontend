@@ -18,7 +18,6 @@ import "./Auth.css";
 const Auth = () => {
   const auth = useContext(AuthContext);
   const [isLoginInMode, setIsLoginInMode] = useState(true);
-
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -38,7 +37,7 @@ const Auth = () => {
   const authSubmitHandler = async (event) => {
     event.preventDefault();
 
-    if (isLoginInMode === true) {
+    if (isLoginInMode) {
       try {
         const responseData = await sendRequest(
           "http://localhost:5000/api/users/login",
@@ -133,8 +132,8 @@ const Auth = () => {
             element="input"
             placeholder="Password"
             type="password"
-            validators={[VALIDATOR_MINLENGTH(5)]}
-            errorText="Min length of password is 5 letters."
+            validators={[VALIDATOR_MINLENGTH(6)]}
+            errorText="Min length of password is 6 letters."
             onInput={inputHandler}
           />
           <Button type="submit" disabled={!formState.isValid}>
