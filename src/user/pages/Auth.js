@@ -5,6 +5,7 @@ import {
   VALIDATOR_EMAIL,
   VALIDATOR_REQUIRE,
 } from "../../shared/util/validators";
+import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import Card from "../../shared/components/UIElements/Card";
@@ -54,7 +55,7 @@ const Auth = () => {
       } catch (err) {}
     } else {
       try {
-        const responseData =  await sendRequest(
+        const responseData = await sendRequest(
           "http://localhost:5000/api/users/signup",
           "POST",
           JSON.stringify({
@@ -68,7 +69,7 @@ const Auth = () => {
         );
 
         auth.login(responseData.user.id);
-      } catch (err) { }
+      } catch (err) {}
     }
   };
 
@@ -115,6 +116,7 @@ const Auth = () => {
               onInput={inputHandler}
             />
           )}
+          {!isLoginInMode && <ImageUpload center id="image" />}
           <Input
             id="email"
             label="Email"
